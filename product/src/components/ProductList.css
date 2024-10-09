@@ -1,28 +1,24 @@
 .product-list {
-    padding: 40px 20px; /* Adjust padding as needed */
+    padding: 40px 20px;
     font-family: Arial, sans-serif;
 }
 
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px; /* Space between grid items */
+    gap: 20px;
 }
 
 .product-item {
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
-    text-align: center; /* Center text */
-    background-color: #f9f9f9; /* Light background */
-    transition: transform 0.2s; /* Smooth scale effect */
+    text-align: center; 
+    background-color: #f9f9f9;
+    transition: transform 0.2s;
 }
 
 .product-item:hover {
-    transform: scale(1.05); /* Scale effect on hover */
+    transform: scale(1.05);
 }
 
-.product-image {
-    width: 100%;
-    height: auto;
-}

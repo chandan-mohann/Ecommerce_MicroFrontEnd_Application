@@ -5,8 +5,12 @@ import { Product } from "product/Product";
 import { Checkout } from "checkout/Checkout";
 import { Cart } from "cart/Cart";
 import "./index.css";
+import { Footer } from "./Footer";
+import store from "../../shared/store"
+import { Provider } from 'react-redux'
 
 const App = () => (
+  <Provider store={store}>
   <Router>
     <nav>
       <ul>
@@ -26,7 +30,9 @@ const App = () => (
       <Route path="/cart" element={<Cart />} />
       <Route path="/checkout" element={<Checkout />} />
     </Routes>
+    <Footer/>
   </Router>
+  </Provider>
 );
 
 const rootElement = document.getElementById("app");

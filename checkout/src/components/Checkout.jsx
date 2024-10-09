@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import './Checkout.css'; // Import the CSS file
-import {Header} from './Header';
-import {Footer} from './Footer';
+import './Checkout.css';
 
 export const Checkout = () => {
   const [formData, setFormData] = useState({
@@ -28,7 +26,6 @@ export const Checkout = () => {
 
   return (
     <div className="checkout">
-      <Header />
       <h2>Checkout</h2>
       <p>Complete your purchase!</p>
       <form onSubmit={handleSubmit}>
@@ -100,7 +97,6 @@ export const Checkout = () => {
         </div>
         <button type="submit" className="checkout-button">Complete Purchase</button>
       </form>
-      <Footer/>
     </div>
   );
 };
