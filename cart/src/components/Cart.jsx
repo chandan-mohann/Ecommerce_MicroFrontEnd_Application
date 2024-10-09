@@ -1,58 +1,42 @@
 import React, { useState } from 'react';
 import './ShoppingCart.css';
-import {Header} from './Header';
-import {Footer} from './Footer';
+import { Typography, Box } from '@mui/material';
 
 export const Cart = () => {
   const [cartItems, setCartItems] = useState([
-    { id: 1, name: 'Product 1', quantity: 1 },
-    { id: 2, name: 'Product 2', quantity: 2 },
-    { id: 3, name: 'Product 3', quantity: 1 },
+    { id: 1, name: 'Product 1', quantity: 1,price:30 },
+    { id: 2, name: 'Product 2', quantity: 2,price:80 },
+    { id: 3, name: 'Product 3', quantity: 1,price:900 },
   ]);
 
-  const increaseQuantity = (id) => {
-    setCartItems(cartItems.map(item => 
-      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-    ));
-  };
-
-  const decreaseQuantity = (id) => {
-    setCartItems(cartItems.map(item => 
-      item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
-    ));
-  };
-
-  const removeItem = (id) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
-  };
+  const totalPrice = cartItems.reduce((total, item) => {
+    return total + item.price * item.quantity;
+  }, 0);
 
   return (
     <div className="shopping-cart">
-      <Header />
-      <h2>Shopping Cart</h2>
+      <Typography variant="h4" component="h2" align="center" gutterBottom>
+        Shopping Cart
+      </Typography>
       {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+       <Typography variant="body1" align="center">No items in cart</Typography>
       ) : (
-        <ul>
+        <div>
           {cartItems.map(item => (
-            <li key={item.id} className="cart-item">
+           <Box key={item.id} className="cart-item" mb={2}>
               <div className="item-info">
-                <span className="item-name">{item.name}</span>
-                <span className="item-quantity">
-                  Quantity: 
-                  <button onClick={() => decreaseQuantity(item.id)}>-</button>
-                  {item.quantity}
-                  <button onClick={() => increaseQuantity(item.id)}>+</button>
+                <Typography  variant="body1" className="item-description">{item.name}</Typography>
+                <span className="item-price">
+                      ${(item.price * item.quantity).toFixed(2)}
                 </span>
               </div>
-              <button className="remove-button" onClick={() => removeItem(item.id)}>
-                Remove
-              </button>
-            </li>
+            </Box>
           ))}
-        </ul>
+           <Typography variant="h5" className="total-price" align="right" mt={2}>
+            Total: ${totalPrice.toFixed(2)}
+          </Typography>
+        </div>
       )}
-      <Footer />
     </div>
   );
 };

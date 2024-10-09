@@ -1,31 +1,30 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Product } from "product/Product";
 import { Checkout } from "checkout/Checkout";
 import { Cart } from "cart/Cart";
 import "./index.css";
+import { Header } from "./Header";
+import { Footer } from "./Footer";
 
 const App = () => (
   <Router>
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Product</Link>
-        </li>
-        <li>
-          <Link to="/cart">Cart</Link>
-        </li>
-        <li>
-          <Link to="/checkout">Checkout</Link>
-        </li>
-      </ul>
-    </nav>
-    <Routes>
-      <Route path="/" element={<Product />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/checkout" element={<Checkout />} />
-    </Routes>
+    <div id="app">
+      <div className="header">
+        <Header />
+      </div>
+      <div className="main">
+        <Routes>
+          <Route path="/" element={<Product />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+        </Routes>
+      </div>
+      <div className="footer">
+        <Footer />
+      </div>
+    </div>
   </Router>
 );
 
