@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
-import './Checkout.css'; // Import the CSS file
-import {Header} from './Header';
-import {Footer} from './Footer';
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Box,
+} from '@mui/material';
 
 export const Checkout = () => {
   const [formData, setFormData] = useState({
@@ -27,80 +31,91 @@ export const Checkout = () => {
   };
 
   return (
-    <div className="checkout">
-      <Header />
-      <h2>Checkout</h2>
-      <p>Complete your purchase!</p>
+    <Container maxWidth="sm" className="checkout">
+      <Typography variant="h4" align="center" gutterBottom>
+        Checkout
+      </Typography>
+      <Typography variant="body1" align="center" gutterBottom>
+        Complete your purchase!
+      </Typography>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
+        <Box mb={2}>
+          <TextField
+            fullWidth
+            label="Name"
             name="name"
             value={formData.name}
             onChange={handleChange}
             required
+            variant="outlined"
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
+        </Box>
+        <Box mb={2}>
+          <TextField
+            fullWidth
+            label="Email"
             name="email"
+            type="email"
             value={formData.email}
             onChange={handleChange}
             required
+            variant="outlined"
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="address">Address:</label>
-          <input
-            type="text"
-            id="address"
+        </Box>
+        <Box mb={2}>
+          <TextField
+            fullWidth
+            label="Address"
             name="address"
             value={formData.address}
             onChange={handleChange}
             required
+            variant="outlined"
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="cardNumber">Card Number:</label>
-          <input
-            type="text"
-            id="cardNumber"
+        </Box>
+        <Box mb={2}>
+          <TextField
+            fullWidth
+            label="Card Number"
             name="cardNumber"
             value={formData.cardNumber}
             onChange={handleChange}
             required
+            variant="outlined"
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="expiryDate">Expiry Date:</label>
-          <input
-            type="text"
-            id="expiryDate"
+        </Box>
+        <Box mb={2}>
+          <TextField
+            fullWidth
+            label="Expiry Date (MM/YY)"
             name="expiryDate"
             value={formData.expiryDate}
             onChange={handleChange}
             required
+            variant="outlined"
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="cvv">CVV:</label>
-          <input
-            type="text"
-            id="cvv"
+        </Box>
+        <Box mb={2}>
+          <TextField
+            fullWidth
+            label="CVV"
             name="cvv"
             value={formData.cvv}
             onChange={handleChange}
             required
+            variant="outlined"
           />
-        </div>
-        <button type="submit" className="checkout-button">Complete Purchase</button>
+        </Box>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          className="checkout-button"
+        >
+          Complete Purchase
+        </Button>
       </form>
-      <Footer/>
-    </div>
+    </Container>
   );
 };
