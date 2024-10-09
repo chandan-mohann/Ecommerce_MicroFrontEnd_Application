@@ -15,11 +15,8 @@ const App = () => (
         <Header />
       </div>
       <div className="main">
-        <Routes>
-          <Route path="/" element={<Product />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-        </Routes>
+       <Product />
+         <Cart />
       </div>
       <div className="footer">
         <Footer />

@@ -7,8 +7,6 @@ import {
   CardContent,
   Typography,
   Button,
-  Snackbar,
-  Alert
 } from '@mui/material';
 
 export const Product = () => {
@@ -39,25 +37,33 @@ export const Product = () => {
   const addToCart = (product) => {
     setCart((prevCart) => {
       const currentQuantity = prevCart[product.id]?.quantity || 0;
-      return {
+      const newCart = {
         ...prevCart,
         [product.id]: { quantity: currentQuantity + 1, product }
       };
+      return newCart;
     });
   };
 
   const removeFromCart = (productId) => {
     setCart((prevCart) => {
       const currentQuantity = prevCart[productId]?.quantity || 0;
+      const newCart = { ...prevCart };
+
       if (currentQuantity <= 1) {
-        const { [productId]: _, ...rest } = prevCart; // Remove the product from the cart if quantity is 1 or less
-        return rest;
+        delete newCart[productId];
+      } else {
+        newCart[productId].quantity -= 1;
       }
-      return {
-        ...prevCart,
-        [productId]: { ...prevCart[productId], quantity: currentQuantity - 1 }
-      };
+
+      return newCart;
     });
+  };
+
+  const handleSubmit = () => {
+    const event = new CustomEvent('addCart', { detail: cart });
+    console.log("event product", event);
+    dispatchEvent(event);
   };
 
   if (loading) return <div>Loading...</div>;
@@ -66,6 +72,7 @@ export const Product = () => {
   return (
     <div className="product-list">
       <Typography variant="h4" gutterBottom>Product List</Typography>
+      <Button variant="contained" onClick={handleSubmit}>Go to Cart</Button>
       <Grid container spacing={2}>
         {products.map(product => (
           <Grid item xs={12} sm={6} md={4} key={product.id}>

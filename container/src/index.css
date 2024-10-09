@@ -1,7 +1,6 @@
-/* Global styles */
 html, body {
-  height: 100%; /* Ensure full height for the body */
-  margin: 0; /* Remove default margin */
+  height: 100%;
+  margin: 0;
 }
 
 body {
@@ -13,25 +12,24 @@ body {
 #app {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensure the app takes up full viewport height */
+  min-height: 100vh;
 }
 
 .header {
-  flex: 0 0 auto; /* Header takes only necessary space */
+  flex: 0 0 auto;
 }
 
 .footer {
-  flex: 0 0 auto; /* Footer takes only necessary space */
+  flex: 0 0 auto;
 }
 
 .main {
-  flex: 1; /* Main content grows to fill available space */
+  flex: 1;
   padding: 2rem;
   width: 90%;
   margin: auto;
 }
 
-/* Navigation styles */
 nav {
   background-color: #007bff;
   padding: 1rem;
@@ -62,7 +60,6 @@ nav a:hover {
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
-/* Product styles */
 .product {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -102,7 +99,6 @@ nav a:hover {
   background-color: #218838;
 }
 
-/* Cart and Checkout styles */
 .cart, .checkout {
   background-color: white;
   border-radius: 8px;
@@ -129,7 +125,6 @@ nav a:hover {
   margin: 0;
 }
 
-/* Checkout button styles */
 .checkout button {
   background-color: #007bff;
   color: white;
@@ -145,7 +140,6 @@ nav a:hover {
   background-color: #0056b3;
 }
 
-/* Responsive styles */
 @media (max-width: 768px) {
   nav ul {
     flex-direction: column;
