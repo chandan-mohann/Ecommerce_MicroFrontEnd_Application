@@ -22,9 +22,8 @@ export const Product = () => {
     error: null,
   });
 
-
   useEffect(() => {
-    console.log('Updated cart state:', cart);
+    console.log('Updated product state:', cart);
   }, [cart]);
 
   useEffect(() => {
@@ -62,8 +61,6 @@ export const Product = () => {
     );
   }
 
-  const totalPrice = Object.values(cart).reduce((acc, item) => acc + item.price * item.quantity, 0);
-console.log("pro",products)
   return (
     <div className="product-list">
       <Typography variant="h4" gutterBottom>Product List</Typography>
@@ -84,22 +81,22 @@ console.log("pro",products)
                   Price: ${product.price}
                 </Typography>
                 {Object.values(cart).map(item => {
-                  // {Object.values(item).map(innerItem => {
-                  console.log("items samaa",item)
-                  return(
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Button
-                    variant="outlined"
-                    onClick={() => removeFromCart(product.id)}
-                    disabled={!cart[product.id]}
-                  >
-                    -
-                  </Button>
-                  <Typography variant="body1">{cart[product.id]?.quantity || 0}</Typography>
-                  <Button variant="contained" onClick={() => addToCart(product)}>+</Button>
-                </div>
-                  )
-                // })}
+                  const cartItem = item.find(cartItem => cartItem.id === product.id);
+                  const quantity = cartItem ? cartItem.quantity : 0;
+
+                  return (
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} key={product.id}>
+                      <Button
+                        variant="outlined"
+                        onClick={() => removeFromCart(product.id)}
+                        disabled={quantity === 0} // Disable if quantity is 0
+                      >
+                        -
+                      </Button>
+                      <Typography variant="body1">{quantity}</Typography>
+                      <Button variant="contained" onClick={() => addToCart(product)}>+</Button>
+                    </div>
+                  );
                 })}
               </CardContent>
             </Card>

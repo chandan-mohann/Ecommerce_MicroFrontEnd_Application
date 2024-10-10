@@ -10,7 +10,6 @@ export const Cart = () => {
     console.log('Updated cart:', cart);
   }, [cart]);
 
-  // Calculate total price
   const totalPrice = Object.values(cart).reduce((acc, item) => {
     return acc + Object.values(item).reduce((innerAcc, innerItem) => {
       return innerAcc + (innerItem.price * innerItem.quantity);

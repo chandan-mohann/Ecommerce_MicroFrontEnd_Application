@@ -9,6 +9,7 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     ADD_TO_CART: (state, action) => {
+      console.log("state in redux",action.payload)
       const existingItem = state.cart.find(item => item.id === action.payload.id);
       if (existingItem) {
         existingItem.quantity += 1;
