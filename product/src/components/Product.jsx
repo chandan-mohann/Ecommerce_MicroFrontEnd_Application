@@ -7,6 +7,8 @@ import {
   CardContent,
   Typography,
   Button,
+  Snackbar,
+  Alert
 } from '@mui/material';
 
 export const Product = () => {
@@ -37,34 +39,39 @@ export const Product = () => {
   const addToCart = (product) => {
     setCart((prevCart) => {
       const currentQuantity = prevCart[product.id]?.quantity || 0;
-      const newCart = {
+      const updatedCart = {
         ...prevCart,
-        [product.id]: { quantity: currentQuantity + 1, product }
+        [product.id]: { quantity: currentQuantity + 1, product },
       };
-      return newCart;
+
+      const event = new CustomEvent('cartUpdated', { detail: updatedCart });
+      window.dispatchEvent(event);
+  
+      return updatedCart;
     });
   };
-
+  
   const removeFromCart = (productId) => {
     setCart((prevCart) => {
       const currentQuantity = prevCart[productId]?.quantity || 0;
-      const newCart = { ...prevCart };
-
+      let updatedCart;
       if (currentQuantity <= 1) {
-        delete newCart[productId];
+        const { [productId]: _, ...rest } = prevCart;
+        updatedCart = rest;
       } else {
-        newCart[productId].quantity -= 1;
+        updatedCart = {
+          ...prevCart,
+          [productId]: { ...prevCart[productId], quantity: currentQuantity - 1 },
+        };
       }
-
-      return newCart;
+  
+      const event = new CustomEvent('cartUpdated', { detail: updatedCart });
+      window.dispatchEvent(event);
+  
+      return updatedCart;
     });
   };
-
-  const handleSubmit = () => {
-    const event = new CustomEvent('addCart', { detail: cart });
-    console.log("event product", event);
-    dispatchEvent(event);
-  };
+  
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -72,7 +79,6 @@ export const Product = () => {
   return (
     <div className="product-list">
       <Typography variant="h4" gutterBottom>Product List</Typography>
-      <Button variant="contained" onClick={handleSubmit}>Go to Cart</Button>
       <Grid container spacing={2}>
         {products.map(product => (
           <Grid item xs={12} sm={6} md={4} key={product.id}>
