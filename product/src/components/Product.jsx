@@ -7,8 +7,6 @@ import {
   CardContent,
   Typography,
   Button,
-  Snackbar,
-  Alert
 } from '@mui/material';
 
 export const Product = () => {

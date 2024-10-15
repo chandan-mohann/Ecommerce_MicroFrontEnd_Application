@@ -69,7 +69,9 @@ module.exports = (_, argv) => ({
         cart: "cart@http://localhost:8082/remoteEntry.js",
         checkout: "checkout@http://localhost:8083/remoteEntry.js",
       },
-      exposes: {},
+      exposes: {
+        './sharedStore': './src/sharedStore',
+      },
       shared: {
         ...deps,
         react: {
