@@ -2,31 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './ShoppingCart.css';
 import { Typography, Box } from '@mui/material';
 
-export const Cart = ({cart}) => {
-  const [cartItems, setCartItems] = useState([]);
-
-  useEffect(()=>{
-    console.log("cart data",cart);
-    cart.map(item=>{
-      console.log("cart quantity",item.quantity)
-      console.log("item.product.title",item.product.title)
-    })
-
-  },[cart])
-
-  useEffect(() => {
-    const handleCartUpdate = (event) => {
-      const updatedCart = event.detail;
-      const newCartItems = Object.values(updatedCart);
-      setCartItems(newCartItems);
-    };
-
-    window.addEventListener('cartUpdated', handleCartUpdate);
-
-    return () => {
-      window.removeEventListener('cartUpdated', handleCartUpdate);
-    };
-  }, []);
+export const Cart = ({cart}) => {  
 
   const totalPrice = cart.reduce((total, item) => {
     return total + item.product.price * item.quantity;
