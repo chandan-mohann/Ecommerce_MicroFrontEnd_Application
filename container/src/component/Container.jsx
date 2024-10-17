@@ -13,8 +13,7 @@ export const Container = () => {
   useEffect(() => {
     const handleCartUpdate = (event) => {
       const updatedCart = event.detail;
-      const newCartItems = Object.values(updatedCart);
-      setCartItems(newCartItems);
+      setCartItems(updatedCart);
     };
 
     window.addEventListener('cartUpdated', handleCartUpdate);
@@ -23,7 +22,7 @@ export const Container = () => {
       window.removeEventListener('cartUpdated', handleCartUpdate);
     };
   }, []);
-  console.log("Cart Item",cartItems)
+  
   return(
   <Router>
     <div id="app">
@@ -32,8 +31,8 @@ export const Container = () => {
       </div>
       <div className="main">
         <Routes>
-          <Route path="/" element={<Product />} />
-          <Route path="/cart" element={<Cart cart={cartItems} />} />
+          <Route path="/" element={<Product cart={cartItems} />} />
+          <Route path="/cart" element={<Cart cart={Object.values(cartItems)} />} />
           <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </div>

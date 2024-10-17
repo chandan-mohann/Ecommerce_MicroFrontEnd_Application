@@ -11,11 +11,10 @@ import {
   Alert
 } from '@mui/material';
 
-export const Product = () => {
+export const Product = ({ cart }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [cart, setCart] = useState({});
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -37,39 +36,31 @@ export const Product = () => {
   }, []);
 
   const addToCart = (product) => {
-    setCart((prevCart) => {
-      const currentQuantity = prevCart[product.id]?.quantity || 0;
-      const updatedCart = {
-        ...prevCart,
-        [product.id]: { quantity: currentQuantity + 1, product },
-      };
+    const updatedCart = {
+      ...cart,
+      [product.id]: { quantity: (cart[product.id]?.quantity || 0) + 1, product },
+    };
 
-      const event = new CustomEvent('cartUpdated', { detail: updatedCart });
-      window.dispatchEvent(event);
-  
-      return updatedCart;
-    });
+    const event = new CustomEvent('cartUpdated', { detail: updatedCart });
+    window.dispatchEvent(event);
   };
-  
+
   const removeFromCart = (productId) => {
-    setCart((prevCart) => {
-      const currentQuantity = prevCart[productId]?.quantity || 0;
-      let updatedCart;
-      if (currentQuantity <= 1) {
-        const { [productId]: _, ...rest } = prevCart;
-        updatedCart = rest;
-      } else {
-        updatedCart = {
-          ...prevCart,
-          [productId]: { ...prevCart[productId], quantity: currentQuantity - 1 },
-        };
-      }
-  
-      const event = new CustomEvent('cartUpdated', { detail: updatedCart });
-      window.dispatchEvent(event);
-  
-      return updatedCart;
-    });
+    const currentQuantity = cart[productId]?.quantity || 0;
+    let updatedCart;
+
+    if (currentQuantity <= 1) {
+      const { [productId]: _, ...rest } = cart;
+      updatedCart = rest;
+    } else {
+      updatedCart = {
+        ...cart,
+        [productId]: { ...cart[productId], quantity: currentQuantity - 1 },
+      };
+    }
+
+    const event = new CustomEvent('cartUpdated', { detail: updatedCart });
+    window.dispatchEvent(event);
   };
   
 
